@@ -1,5 +1,7 @@
 import { Router } from 'express'
 
+import SessionController from './controllers/SessionController'
+
 const routes = new Router
 
 routes.get('/', (req, res) => {
@@ -7,5 +9,7 @@ routes.get('/', (req, res) => {
         message: 'Hello World!'
     })
 })
+
+routes.post('/sessions', SessionController.store)
 
 export default routes
