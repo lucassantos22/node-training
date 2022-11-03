@@ -1,4 +1,5 @@
 import House from "../models/House"
+import User from "../models/User"
 
 class HouseController {
 
@@ -29,7 +30,17 @@ class HouseController {
         const { id } = req.params
         const { user_id } = req.headers
         const { description, price, location, status } = req.body
-        const house = await House.updateOne({ _id: id }, {
+
+        const user = await User.findById(user_id)
+        const house = await House.findById(id)
+
+        if (!user) return res.status(401).json({ message: 'Unauthorized' })
+
+        if (String(user._id) !== String(house.user)){
+            return res.status(401).json({ message: 'Unauthorized' })
+        }
+
+        await House.updateOne({ _id: id }, {
             thumbnail: filename,
             description,
             price,
@@ -37,7 +48,23 @@ class HouseController {
             status,
             user: user_id
         })
-        res.json(house)
+        res.json({ updated: true })
+    }
+
+    async destroy(req, res) {
+        const { id } = req.params
+        const { user_id } = req.headers
+
+        const user = await User.findById(user_id)
+        const house = await House.findById(id)
+
+        if (!user) return res.status(401).json({ message: 'Unauthorized' })
+
+        if (String(user._id) !== String(house.user)){
+            return res.status(401).json({ message: 'Unauthorized' })
+        }
+        await House.deleteOne({ _id: id })
+        res.json({ destroyed: true })
     }
 
     async list(req, res) {
