@@ -6,6 +6,7 @@ import routes from './routes';
 
 const app = express();
 
+// Coneção com o banco de dados
 mongoose.connect('mongodb+srv://devhouse:devhouse@devhouse.kqf7nd7.mongodb.net/?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
