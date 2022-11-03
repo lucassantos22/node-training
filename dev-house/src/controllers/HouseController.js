@@ -66,11 +66,6 @@ class HouseController {
         await House.deleteOne({ _id: id })
         res.json({ destroyed: true })
     }
-
-    async list(req, res) {
-        const houses = await House.find({})
-        res.json(houses)
-    }
 }
 
 export default new HouseController
