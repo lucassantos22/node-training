@@ -16,5 +16,7 @@ routes.get('/', (req, res) => {
 
 routes.post('/sessions', SessionController.store)
 routes.post('/houses', upload.single('thumbnail'), HouseController.store)
+routes.get('/houses', HouseController.index)
+routes.put('/houses/:id', upload.single('thumbnail'), HouseController.update)
 
 export default routes
