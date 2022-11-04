@@ -1,5 +1,6 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import cors from 'cors'
+import mongoose from 'mongoose'
 import path from 'path'
 
 import routes from './routes';
@@ -11,6 +12,9 @@ mongoose.connect('mongodb+srv://devhouse:devhouse@devhouse.kqf7nd7.mongodb.net/?
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
+
+// Configura CORS
+app.use(cors())
 
 // Cadastrar rotas para imagens dentro de uploads
 app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')))
