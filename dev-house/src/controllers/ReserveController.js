@@ -1,8 +1,24 @@
 import Reserve from "../models/Reserve";
-import User from "../models/User";
 import House from "../models/House";
 
 class ReserveController {
+
+    async index(req, res) {
+        const { user_id } = req.headers
+        const reserves = await Reserve.find({ user: user_id }).populate('house')
+
+        res.json(reserves)
+    }
+
+    async destroy(req, res) {
+        const { user_id } = req.headers
+        const { reserve_id } = req.body
+
+        const reserve = await Reserve.findById(reserve_id)
+        if (reserve.user != user_id) return res.status(401).json({ message: 'This reserve is not yours' })
+        await Reserve.deleteOne({ _id: reserve_id })
+        res.send()
+    }
 
     async store(req, res) {
         const { user_id } = req.headers;

@@ -23,5 +23,7 @@ routes.put('/houses/:id', upload.single('thumbnail'), HouseController.update)
 routes.delete('/houses/:id', HouseController.destroy)
 routes.get('/dashboard', DashboardController.show)
 routes.post('/houses/:id/reserve', ReserveController.store)
+routes.get('/reserves', ReserveController.index)
+routes.delete('/reserves', ReserveController.destroy)
 
 export default routes
