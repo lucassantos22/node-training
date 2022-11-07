@@ -5,6 +5,7 @@ import uploadConfig from './config/upload'
 import SessionController from './controllers/SessionController'
 import HouseController from './controllers/HouseController'
 import DashboardController from './controllers/DashboardController'
+import ReserveController from './controllers/ReserveController'
 
 const routes = new Router
 const upload = multer(uploadConfig)
@@ -21,5 +22,6 @@ routes.get('/houses', HouseController.index)
 routes.put('/houses/:id', upload.single('thumbnail'), HouseController.update)
 routes.delete('/houses/:id', HouseController.destroy)
 routes.get('/dashboard', DashboardController.show)
+routes.post('/houses/:id/reserve', ReserveController.store)
 
 export default routes
