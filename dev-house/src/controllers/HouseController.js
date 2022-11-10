@@ -1,7 +1,7 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
-import House from "../models/House";
-import User from "../models/User";
+import House from '../models/House';
+import User from '../models/User';
 
 class HouseController {
     async index(req, res) {
@@ -23,7 +23,7 @@ class HouseController {
         const { user_id } = req.headers;
 
         if (!(await schema.isValid(req.body))) {
-            return res.status(400).json({ message: "Missing inputs" });
+            return res.status(400).json({ message: 'Missing inputs' });
         }
 
         const house = await House.create({
@@ -50,7 +50,7 @@ class HouseController {
         });
 
         if (!(await schema.isValid(req.body))) {
-            return res.status(400).json({ message: "Missing inputs" });
+            return res.status(400).json({ message: 'Missing inputs' });
         }
 
         const { description, price, location, status } = req.body;
@@ -58,10 +58,10 @@ class HouseController {
         const user = await User.findById(user_id);
         const house = await House.findById(id);
 
-        if (!user) return res.status(401).json({ message: "Unauthorized" });
+        if (!user) return res.status(401).json({ message: 'Unauthorized' });
 
         if (String(user._id) !== String(house.user)) {
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({ message: 'Unauthorized' });
         }
 
         await House.updateOne(
@@ -85,10 +85,10 @@ class HouseController {
         const user = await User.findById(user_id);
         const house = await House.findById(id);
 
-        if (!user) return res.status(401).json({ message: "Unauthorized" });
+        if (!user) return res.status(401).json({ message: 'Unauthorized' });
 
         if (String(user._id) !== String(house.user)) {
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({ message: 'Unauthorized' });
         }
         await House.deleteOne({ _id: id });
         return res.json({ destroyed: true });

@@ -1,11 +1,11 @@
-import Reserve from "../models/Reserve";
-import House from "../models/House";
+import Reserve from '../models/Reserve';
+import House from '../models/House';
 
 class ReserveController {
     async index(req, res) {
         const { user_id } = req.headers;
         const reserves = await Reserve.find({ user: user_id }).populate(
-            "house"
+            'house'
         );
 
         return res.json(reserves);
@@ -19,7 +19,7 @@ class ReserveController {
         if (reserve.user !== user_id)
             return res
                 .status(401)
-                .json({ message: "This reserve is not yours" });
+                .json({ message: 'This reserve is not yours' });
         await Reserve.deleteOne({ _id: reserve_id });
         return res.send();
     }
@@ -32,13 +32,13 @@ class ReserveController {
         const house = await House.findById(id);
         if (!house) {
             return res.status(404).json({
-                message: "House not found",
+                message: 'House not found',
             });
         }
 
         if (!house.status) {
             return res.status(400).json({
-                message: "House is not available",
+                message: 'House is not available',
             });
         }
 
@@ -48,8 +48,8 @@ class ReserveController {
             date,
         });
 
-        await reserve.populate("house");
-        await reserve.populate("user");
+        await reserve.populate('house');
+        await reserve.populate('user');
 
         return res.json(reserve);
     }
