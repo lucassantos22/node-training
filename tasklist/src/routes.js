@@ -12,6 +12,6 @@ routes.post('/sessions', SessionController.store);
 
 // Todas as rotas abaixo desse routes.use necessitarão de autenticação
 routes.use(authMiddleware);
-routes.put('/users', authMiddleware, UserController.update);
+routes.put('/users', UserController.update);
 
 export default routes;
