@@ -23,4 +23,4 @@ class Task extends Model {
     }
 }
 
-export default new Task();
+export default Task;
